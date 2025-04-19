@@ -19,6 +19,8 @@ module.exports.getStudentsData = async (req, res) => {
    const e4Scanned = e4Students.filter((s) => s.isScanned).length;
    const e4Pending = e4Count - e4Scanned;
 
+  
+
    const recentScans = await Student.find({ isScanned: true })
      .sort({ scannedTime: -1 })
      .limit(5)

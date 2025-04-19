@@ -78,7 +78,7 @@ const Dashboard = () => {
           e4Count: apiData.e4Count || 0,
           e3Scanned:apiData.e3Scanned || 0,
           e3Pending: apiData.e3Pending || 0,
-          e4Scanned: apiData.e4Sanned || 0,
+          e4Scanned: apiData.e4Scanned || 0,
           e4Pending: apiData.e4Pending || 0,
         };
 
