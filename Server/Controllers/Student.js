@@ -65,6 +65,10 @@ module.exports.getStudentDetails = async (req, res) => {
       path: "iceCreamScannedBy",
       select: "email", // Only select the 'email' field from this populated document
     });
+  
+  if (!student) {
+    throw new ExpressError(404, "ID not found");
+  }
 
  
 
