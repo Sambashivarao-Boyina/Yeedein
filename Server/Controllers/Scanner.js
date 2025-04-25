@@ -5,6 +5,7 @@ const ExpressError = require("../Utils/ExpessError");
 module.exports.checkInStudent = async (req, res) => {
   const token = req.body.token;
 
+
   if (!token) {
     throw new ExpressError(404, "Token not found");
   }
@@ -18,7 +19,7 @@ module.exports.checkInStudent = async (req, res) => {
   }
 
   if (student.isCheckIn) {
-    throw new ExpressError(409, "Already Scanned");
+    throw new ExpressError(409, "Already Checked In");
   }
 
   student.isCheckIn = true;
@@ -48,7 +49,7 @@ module.exports.scanFood = async (req, res) => {
     throw new ExpressError(409, "Student Not CheckedIn");
   }
   if (student.isTakenFood) {
-    throw new ExpressError(409, "Student Alreadt taken Food");
+    throw new ExpressError(409, "Student Already taken Food");
   }
 
   student.isTakenFood = true;
@@ -79,7 +80,7 @@ module.exports.scanIceCream = async (req, res) => {
     throw new ExpressError(409, "Student Not CheckedIn");
   }
   if (student.isTakenIcecream) {
-    throw new ExpressError(409, "Student Alreadt taken Food");
+    throw new ExpressError(409, "Student Alreadt Ice Cream  ");
   }
 
   student.isTakenIcecream = true;

@@ -57,7 +57,7 @@ function CheckInStudent() {
       setScanning(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.patch(
           "api/scanner/checkIn",
           { token: decodedText },
           {

@@ -57,7 +57,7 @@ function ScanFood() {
       setScanning(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.patch(
           "api/scanner/scanfood",
           { token: decodedText },
           {
