@@ -55,17 +55,18 @@ module.exports.getStudentDetails = async (req, res) => {
   const student = await Student.findOne({ idNumber: studentId })
     .populate({
       path: "checkInScannedBy",
+      select: "email", // Only select the 'email' field from this populated document
     })
     .populate({
       path: "foodScannedBy",
+      select: "email", // Only select the 'email' field from this populated document
     })
     .populate({
       path: "iceCreamScannedBy",
+      select: "email", // Only select the 'email' field from this populated document
     });
-  
-  if (!student) {
-    throw new ExpressError(404,"Student Id not found")
-  }
+
+ 
 
   res.status(200).json(student);
 };

@@ -15,6 +15,7 @@ import {
   AlertCircle,  
   Coffee,
   IceCream,
+  Utensils,
 } from "lucide-react";
 
 // Define the type for our API response
@@ -25,13 +26,13 @@ interface UserData {
   year: string;
   isCheckIn: boolean;
   checkInTime: string | null;
-  checkInScannedBy: string | null;
+  checkInScannedBy: any | null;
   isTakenFood: boolean;
   foodTakenAt: string | null;
-  foodScannedBy: string | null;
+  foodScannedBy: any | null;
   isTakenIcecream: boolean;
   iceCreamTakenAt: string | null;
-  iceCreamScannedBy: string | null;
+  iceCreamScannedBy: any | null;
 }
 
 const StudentSearch = () => {
@@ -189,20 +190,20 @@ const StudentSearch = () => {
                       ? formatDate(userData.checkInTime)
                       : null
                   }
-                  completedBy={userData.checkInScannedBy}
+                  completedBy={userData.checkInScannedBy?.email}
                 />
 
                 {/* Food Card */}
                 <StatusCard
                   title="Food"
-                  icon={<Coffee size={18} />}
+                  icon={<Utensils size={18} />}
                   isCompleted={userData.isTakenFood}
                   completedTime={
                     userData.foodTakenAt
                       ? formatDate(userData.foodTakenAt)
                       : null
                   }
-                  completedBy={userData.foodScannedBy}
+                  completedBy={userData.foodScannedBy?.email}
                 />
 
                 {/* Ice Cream Card */}
@@ -215,7 +216,7 @@ const StudentSearch = () => {
                       ? formatDate(userData.iceCreamTakenAt)
                       : null
                   }
-                  completedBy={userData.iceCreamScannedBy}
+                  completedBy={userData.iceCreamScannedBy?.email}
                 />
               </div>
             </div>

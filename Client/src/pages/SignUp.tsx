@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { UserPlus, ArrowLeft, User } from 'lucide-react';
+import { UserPlus, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { setCredentials, setUser } from '../store/slices/authSlice';
 import axios from 'axios';
