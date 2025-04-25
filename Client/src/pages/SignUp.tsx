@@ -55,11 +55,10 @@ const SignUp = () => {
       toast.success('Successfully registered!');
       navigate('/dashboard');
     } catch (error: any) {
-      console.log(error);
-      const errorMessage =
-        error.respone?.data?.message ||
-        "Registration failed. Please try again.";
-      toast.error(errorMessage);
+       const errorMessage =
+         error.response?.data?.message ||
+         "Something went wrong. Please try again.";
+       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
