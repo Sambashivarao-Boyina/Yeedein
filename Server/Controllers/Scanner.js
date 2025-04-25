@@ -80,7 +80,7 @@ module.exports.scanIceCream = async (req, res) => {
     throw new ExpressError(409, "Student Not CheckedIn");
   }
   if (student.isTakenIcecream) {
-    throw new ExpressError(409, "Student Already Ice Cream  ");
+    throw new ExpressError(409, "Student Already taken Ice Cream  ");
   }
 
   student.isTakenIcecream = true;
