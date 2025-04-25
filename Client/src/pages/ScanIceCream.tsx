@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Html5QrcodeScanner } from "html5-qrcode"
+import { Html5QrcodeScanner } from "html5-qrcode";
 import {
   QrCode,
   RefreshCw,
@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function Scanner() {
+function ScanIceCream() {
   const [scanning, setScanning] = useState(false);
   const [scanResult, setScanResult] = useState<{
     text: string;
@@ -58,7 +58,7 @@ function Scanner() {
 
       try {
         const response = await axios.post(
-          "api/scanner",
+          "api/scanner/scanicecream",
           { token: decodedText },
           {
             headers: {
@@ -74,7 +74,6 @@ function Scanner() {
           message: response.data.message,
         });
 
-
         // Clear scanner
         await scanner.clear();
         scannerRef.current = null;
@@ -88,7 +87,6 @@ function Scanner() {
           success: false,
           message: errorMessage,
         });
-
 
         // Clear scanner
         await scanner.clear();
@@ -148,7 +146,7 @@ function Scanner() {
             <div className="flex items-center">
               <QrCode className="h-6 w-6 sm:h-8 sm:w-8 text-blue-700 mr-2" />
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                QR Scanner
+                Scan IceCream
               </h1>
             </div>
           </div>
@@ -260,4 +258,4 @@ function Scanner() {
   );
 }
 
-export default Scanner;
+export default ScanIceCream;

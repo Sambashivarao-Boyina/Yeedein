@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import { setCredentials } from "../store/slices/authSlice";
@@ -73,12 +73,12 @@ const Login = () => {
             Login
           </button>
         </form>
-        {/* <p className="mt-4 text-center text-gray-600">
+        <p className="mt-4 text-center text-gray-600">
           Don't have an account?{" "}
           <Link to="/signup" className="text-blue-600 hover:underline">
             Sign up
           </Link>
-        </p> */}
+        </p>
       </div>
     </div>
   );

@@ -15,11 +15,32 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  function isValidRGUKTEmail(email:string) {
+    const domain = "@rguktsklm.ac.in";
+
+    if (!email.endsWith(domain)) {
+      return false;
+    }
+
+    const localPart = email.split("@")[0];
+
+    const rsPattern = /^rs20\d{4}$/;
+    const sPattern = /^s19\d{4}$/;
+
+    return rsPattern.test(localPart) || sPattern.test(localPart);
+  }
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
+      return;
+    }
+
+    if (!isValidRGUKTEmail(email)) {
+      toast.error("Enter Valid email");
       return;
     }
 

@@ -15,7 +15,7 @@ module.exports.signup = async (req, res) => {
   const savedAdmin = await newAdmin.save();
   const admin = await Admin.findById(savedAdmin._id).select("-password");
   const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "7d",
   });
 
   res.status(200).json({ token: token, admin: admin });
@@ -35,9 +35,29 @@ module.exports.signin = async (req, res) => {
   }
 
   const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "7d",
   });
   admin = await Admin.findById(admin._id).select("-password");
 
   res.status(200).json({user:admin, token:token });
 };
+
+
+module.exports.refreshToken = async (req, res) => {
+  const adminId = req.adminId;
+  if (!adminId) {
+    throw new ExpressError(404, "Admin Not found");
+  }
+
+  const admin = await Admin.findById(adminId).select("-password");
+  if (!admin) {
+    throw new ExpressError(404, "Admin not found");
+  }
+
+  const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+
+  res.status(200).json({user: admin, token: token });
+
+}

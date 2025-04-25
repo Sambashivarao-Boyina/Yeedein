@@ -8,8 +8,8 @@ connectDB();
 
 const insertStudent = async () => {
   const student = new Student({
-    email: "s190212@gmail.com",
-    idNumber: "s190193",
+    email: "rs190195@rguktsklm.ac.in",
+    idNumber: "S190195",
     year: "E4",
   });
 
