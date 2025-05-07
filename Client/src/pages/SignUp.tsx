@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { UserPlus, ArrowLeft } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import toast from "react-hot-toast";
-import { setCredentials, setUser } from "../store/slices/authSlice";
 import axios from "axios";
 
 const SignUp = () => {
@@ -46,7 +43,7 @@ const SignUp = () => {
     setIsLoading(true);
     try {
       // Added category to the request body
-      const response = await axios.post(
+      await axios.post(
         "/api/auth/signup",
         {
           email: email,
