@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   QrCode,
   BarChart3,
-  UtensilsCrossed,
   IceCream,
   LogOut,
   LogIn,
@@ -20,7 +19,6 @@ const Home: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(user);
     if (user) {
 
       setIsLoggedIn(true);
@@ -44,7 +42,7 @@ const Home: React.FC = () => {
       {/* Header with Auth Button */}
       <header className="p-4 flex items-center justify-between">
         <div className="flex items-center">
-          <UtensilsCrossed className="w-7 h-7 text-indigo-600 mr-2" />
+          <img src="/logo.png" className="w-7 h-7 text-indigo-600 mr-2" />
           <h1 className="text-2xl sm:text-3xl font-bold text-indigo-800">
             Yaadein
           </h1>
@@ -104,8 +102,7 @@ const Home: React.FC = () => {
                   </Link>
                 )}
 
-                {(user.category === "Admin" ||
-                  user.category === "IceCream") && (
+                {(user.category === "Admin" ||user.category === "IceCream") && (
                   <Link to="/scanicecream" className="block w-full">
                     <button className="flex items-center justify-between w-full p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
                       <span className="font-medium">Scan Ice Cream</span>

@@ -11,7 +11,7 @@ const IceCreamRoute: React.FC<IceCreamRouteProps> = ({ element }) => {
   const user = useSelector((store: RootState) => store.auth.user);
 
   if (user) {
-    return user && (user.category === "Admin" || user.category === "Food") ? (
+    return user && (user.category === "Admin" || user.category === "IceCream") ? (
       element
     ) : (
       <Navigate to="/" replace />

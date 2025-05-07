@@ -28,7 +28,6 @@ function App() {
     const refreshToken = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log(token);
         const response = await axios.post(
           "api/auth/refreshToken",
           {},
@@ -40,10 +39,8 @@ function App() {
         );
 
         const data = response.data;
-        console.log(data);
         dispatch(setCredentials({ user: data.user, token: data.token }));
       } catch (error) {
-        console.log("Error:", error);
         dispatch(logout());
         localStorage.removeItem("token");
       }
