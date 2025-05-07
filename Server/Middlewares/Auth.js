@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const Admin = require("../Modals/Admin");
 
 module.exports.verifyToken = (req, res, next) => {
   const token = req.headers["authorization"];
@@ -7,11 +8,14 @@ module.exports.verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
+  
     req.adminId = decoded.id;
+    req.adminCategroy = decoded.categroy;
     next();
   } catch (err) {
     res.status(401).json({ msg: "Invalid token" });
     return;
   }
 };
+
 

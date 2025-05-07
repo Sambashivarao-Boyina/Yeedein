@@ -8,6 +8,7 @@ import {
   LogOut,
   LogIn,
   Utensils,
+  Shield,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -19,10 +20,12 @@ const Home: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log(user);
     if (user) {
+
       setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false)
+      setIsLoggedIn(false);
     }
   }, [user, dispatch]);
   const navigate = useNavigate();
@@ -81,27 +84,37 @@ const Home: React.FC = () => {
 
           {/* Card Content - Scanner Options */}
           <div className="p-5 space-y-4">
-            <Link to="/checkin" className="block w-full">
-              <button className="flex items-center justify-between w-full p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
-                <span className="font-medium">Check In</span>
-                <QrCode className="w-5 h-5" />
-              </button>
-            </Link>
+            {user && (
+              <>
+                {(user.category === "Admin" || user.category === "CheckIn") && (
+                  <Link to="/checkin" className="block w-full">
+                    <button className="flex items-center justify-between w-full p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
+                      <span className="font-medium">Check In</span>
+                      <QrCode className="w-5 h-5" />
+                    </button>
+                  </Link>
+                )}
 
-            <Link to="/scanfood" className="block w-full">
-              <button className="flex items-center justify-between w-full p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
-                <span className="font-medium">Scan Food</span>
-                <Utensils className="w-5 h-5" />
-              </button>
-            </Link>
+                {(user.category === "Admin" || user.category === "Food") && (
+                  <Link to="/scanfood" className="block w-full">
+                    <button className="flex items-center justify-between w-full p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
+                      <span className="font-medium">Scan Food</span>
+                      <Utensils className="w-5 h-5" />
+                    </button>
+                  </Link>
+                )}
 
-            <Link to="/scanicecream" className="block w-full">
-              <button className="flex items-center justify-between w-full p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
-                <span className="font-medium">Scan Ice Cream</span>
-                <IceCream className="w-5 h-5" />
-              </button>
-            </Link>
-
+                {(user.category === "Admin" ||
+                  user.category === "IceCream") && (
+                  <Link to="/scanicecream" className="block w-full">
+                    <button className="flex items-center justify-between w-full p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
+                      <span className="font-medium">Scan Ice Cream</span>
+                      <IceCream className="w-5 h-5" />
+                    </button>
+                  </Link>
+                )}
+              </>
+            )}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200"></div>
@@ -110,6 +123,15 @@ const Home: React.FC = () => {
                 <span className="px-2 bg-white text-gray-500">or</span>
               </div>
             </div>
+
+            {user && user.category === "Admin" && (
+              <Link to="/adminDashBoard" className="block w-full">
+                <button className="flex items-center justify-between w-full p-4 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all shadow-sm hover:shadow-md">
+                  <span className="font-medium">Admin DashBoard</span>
+                  <Shield className="w-5 h-5" />
+                </button>
+              </Link>
+            )}
 
             <Link to="/dashboard" className="block w-full">
               <button className="flex items-center justify-between w-full p-4 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all shadow-sm hover:shadow-md">

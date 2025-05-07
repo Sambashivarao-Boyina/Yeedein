@@ -4,21 +4,25 @@ const jwt = require("jsonwebtoken");
 const ExpressError = require("../Utils/ExpessError");
 
 module.exports.signup = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, category } = req.body;
+  if (req.userCategroy !== "Admin") {
+    throw new ExpressError(404, "You are not admin to add people");
+  }
   const exists = await Admin.findOne({ email });
   if (exists) {
     throw new ExpressError(404, "Admin Already Exist");
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const newAdmin = new Admin({ email, password: hashedPassword });
-  const savedAdmin = await newAdmin.save();
-  const admin = await Admin.findById(savedAdmin._id).select("-password");
-  const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
+  if (category === "Admin") {
+    throw new ExpressError(404, "There is already an Admin");
+  }
 
-  res.status(200).json({ token: token, admin: admin });
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newAdmin = new Admin({ email, password: hashedPassword, category: category });
+  await newAdmin.save();
+ 
+
+  res.status(200).json({ message: "Verifier Added" });
   
 };
 
@@ -34,7 +38,9 @@ module.exports.signin = async (req, res) => {
     throw new ExpressError(401, "Password Missmatch");
   }
 
-  const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
+  
+
+  const token = jwt.sign({ id: admin._id,  category: admin.category }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
   admin = await Admin.findById(admin._id).select("-password");

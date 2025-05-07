@@ -42,7 +42,7 @@ const createJson = async () => {
 
     const jsonPath = path.join(__dirname, "exportedData.json");
 
-    fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2)); // pretty print with 2-space indent
+    fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2));
 
     console.log("✅ Data exported to JSON file:", jsonPath);
   } catch (error) {

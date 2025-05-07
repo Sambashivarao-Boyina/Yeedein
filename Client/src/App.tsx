@@ -13,6 +13,13 @@ import CheckInStudent from "./pages/CheckInStudent";
 import ScanFood from "./pages/ScanFood";
 import ScanIceCream from "./pages/ScanIceCream";
 import StudentSearch from "./pages/StudentSearch";
+import CheckInRoute from "./components/CheckInRoute";
+import FoodRoute from "./components/FoodRoute";
+import IceCreamRoute from "./components/IceCreamRoute";
+import AdminRoute from "./components/AdminRoute";
+import AdminDashBoard from "./pages/AdminDashBoard";
+import AddStudentPage from "./pages/AddStudent";
+import GenerateQrPage from "./pages/GenenareteQRCode";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +27,7 @@ function App() {
   useEffect(() => {
     const refreshToken = async () => {
       try {
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem("token");
         console.log(token);
         const response = await axios.post(
           "api/auth/refreshToken",
@@ -38,7 +45,7 @@ function App() {
       } catch (error) {
         console.log("Error:", error);
         dispatch(logout());
-        localStorage.removeItem("token"); 
+        localStorage.removeItem("token");
       }
     };
 
@@ -51,22 +58,37 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route
             path="/checkin"
-            element={<PrivateRoute element={<CheckInStudent />} />}
+            element={<CheckInRoute element={<CheckInStudent />} />}
           />
           <Route
             path="/scanfood"
-            element={<PrivateRoute element={<ScanFood />} />}
+            element={<FoodRoute element={<ScanFood />} />}
           />
           <Route
             path="/scanicecream"
-            element={<PrivateRoute element={<ScanIceCream />} />}
+            element={<IceCreamRoute element={<ScanIceCream />} />}
           />
           <Route
             path="/searchstudent"
             element={<PrivateRoute element={<StudentSearch />} />}
+          />
+          <Route
+            path="/adminDashBoard"
+            element={<AdminRoute element={<AdminDashBoard />} />}
+          />
+          <Route
+            path="/add-student"
+            element={<AdminRoute element={<AddStudentPage />} />}
+          />
+          <Route
+            path="/add-verifier"
+            element={<AdminRoute element={<SignUp />} />}
+          />
+          <Route
+            path="/generate-qr"
+            element={<AdminRoute element={<GenerateQrPage />} />}
           />
           <Route
             path="/dashboard"

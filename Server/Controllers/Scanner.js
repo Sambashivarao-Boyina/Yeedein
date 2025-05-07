@@ -5,7 +5,9 @@ const ExpressError = require("../Utils/ExpessError");
 module.exports.checkInStudent = async (req, res) => {
   const token = req.body.token;
 
-
+  if (!(req.adminCategroy === "Admin" || req.adminCategroy === "CheckIn")) {
+    throw new ExpressError(404, "You have no Access to CheckIn Students");
+  }
   if (!token) {
     throw new ExpressError(404, "Token not found");
   }
@@ -19,7 +21,7 @@ module.exports.checkInStudent = async (req, res) => {
   }
 
   if (student.isCheckIn) {
-    throw new ExpressError(409, "Already Checked In");
+    throw new ExpressError(409, `${student.idNumber} is Already Checked In`);
   }
 
   student.isCheckIn = true;
@@ -27,11 +29,16 @@ module.exports.checkInStudent = async (req, res) => {
   student.checkInScannedBy = req.adminId;
   await student.save();
 
-  res.status(200).json({ message: "Student CheckedIn" });
+  res
+    .status(200)
+    .json({ message: `${student.idNumber} is CheckedIn Successfully` });
 };
 
 module.exports.scanFood = async (req, res) => {
   const token = req.body.token;
+  if (!(req.adminCategroy === "Admin" || req.adminCategroy === "Food")) {
+    throw new ExpressError(404, "You have no Access to Scan Food");
+  }
 
   if (!token) {
     throw new ExpressError(404, "Token not found");
@@ -46,10 +53,10 @@ module.exports.scanFood = async (req, res) => {
   }
 
   if (!student.isCheckIn) {
-    throw new ExpressError(409, "Student Not CheckedIn");
+    throw new ExpressError(409, `${student.idNumber} is Not CheckedIn`);
   }
   if (student.isTakenFood) {
-    throw new ExpressError(409, "Student Already taken Food");
+    throw new ExpressError(409, `${student.idNumber} Already taken Food`);
   }
 
   student.isTakenFood = true;
@@ -57,12 +64,16 @@ module.exports.scanFood = async (req, res) => {
   student.foodScannedBy = req.adminId;
   await student.save();
 
-  res.status(200).json({ message: "Food Scanned" });
+  res
+    .status(200)
+    .json({ message: `${student.idNumber} Food Scan Successfull` });
 };
-
 
 module.exports.scanIceCream = async (req, res) => {
   const token = req.body.token;
+  if (!(req.adminCategroy === "Admin" || req.adminCategroy === "IceCream")) {
+    throw new ExpressError(404, "You have no Access to Scan Icecream");
+  }
 
   if (!token) {
     throw new ExpressError(404, "Token not found");
@@ -80,7 +91,10 @@ module.exports.scanIceCream = async (req, res) => {
     throw new ExpressError(409, "Student Not CheckedIn");
   }
   if (student.isTakenIcecream) {
-    throw new ExpressError(409, "Student Already taken Ice Cream  ");
+    throw new ExpressError(
+      409,
+      `${student.idNumber} Already taken Ice Cream  `
+    );
   }
 
   student.isTakenIcecream = true;
@@ -88,5 +102,7 @@ module.exports.scanIceCream = async (req, res) => {
   student.iceCreamScannedBy = req.adminId;
   await student.save();
 
-  res.status(200).json({ message: "IceCream Scanned" });
+  res
+    .status(200)
+    .json({ message: `${student.idNumber} Icecream scan Successfull` });
 };

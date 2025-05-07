@@ -1,3 +1,4 @@
+const { decrypt, encrypt } = require("../Encryption/Encrypt");
 const Student = require("../Modals/Student");
 const ExpressError = require("../Utils/ExpessError");
 
@@ -49,10 +50,12 @@ module.exports.getStudentsData = async (req, res) => {
 module.exports.getStudentDetails = async (req, res) => {
   const studentId = req.params.studentId;
   if (!studentId) {
-    throw new ExpressError(404, "Student Id is missing");
+    throw new ExpressError(404, "Student Token is missing");
   }
 
-  const student = await Student.findOne({ idNumber: studentId })
+  const id = decrypt(studentId);
+
+  const student = await Student.findOne({ idNumber: id })
     .populate({
       path: "checkInScannedBy",
       select: "email", // Only select the 'email' field from this populated document
@@ -74,3 +77,26 @@ module.exports.getStudentDetails = async (req, res) => {
 
   res.status(200).json(student);
 };
+
+
+module.exports.addStudent = async (req, res) => {
+  const { email, idNumber, year } = req.body;
+  const student = new Student({ email: email, idNumber: idNumber, year: year });
+  const savedStudent = await student.save();
+
+  const token = encrypt(savedStudent._id);
+
+  res.status(200).json({message:"Student is Created", token: token})
+}
+
+module.exports.getToken = async (req, res) => {
+  const idNumber = req.params.idNumber;
+  const student = await Student.findOne({ idNumber: idNumber }).select("idNumber year email");
+  if (!student) {
+    throw new ExpressError(404, "Student Not found");
+  }
+
+  const token = encrypt(student._id);
+
+  res.status(200).json({ token: token, student: student });
+}

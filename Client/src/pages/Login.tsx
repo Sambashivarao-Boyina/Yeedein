@@ -24,7 +24,7 @@ const Login = () => {
       const data = response.data;
       dispatch(setCredentials({ user: data.user, token: data.token }));
       toast.success("Login successful!");
-      navigate("/");
+      navigate(-1);
     } catch (error: any) {
       
       const errorMessage =
@@ -73,12 +73,7 @@ const Login = () => {
             Login
           </button>
         </form>
-        <p className="mt-4 text-center text-gray-600">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-600 hover:underline">
-            Sign up
-          </Link>
-        </p>
+        
       </div>
     </div>
   );

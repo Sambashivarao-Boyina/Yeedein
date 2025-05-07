@@ -146,7 +146,7 @@ function ScanFood() {
             <div className="flex items-center">
               <QrCode className="h-6 w-6 sm:h-8 sm:w-8 text-blue-700 mr-2" />
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Scann Food
+                Scan Food
               </h1>
             </div>
           </div>
@@ -210,15 +210,7 @@ function ScanFood() {
                 <p className="font-medium">{scanResult.message}</p>
               </div>
 
-              {/* Scanned content */}
-              <div className="mb-5">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">
-                  Scanned Value:
-                </h3>
-                <p className="p-3 bg-gray-100 rounded-lg text-gray-800 font-mono break-all">
-                  {scanResult.text}
-                </p>
-              </div>
+             
 
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row gap-3">

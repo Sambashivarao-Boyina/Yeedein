@@ -10,6 +10,11 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+    enum:["Admin","CheckIn","Food","IceCream"]
+  }
 });
 
 module.exports = mongoose.model("Admin", adminSchema);
