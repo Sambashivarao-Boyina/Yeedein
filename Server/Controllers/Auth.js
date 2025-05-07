@@ -5,7 +5,7 @@ const ExpressError = require("../Utils/ExpessError");
 
 module.exports.signup = async (req, res) => {
   const { email, password, category } = req.body;
-  if (req.userCategroy !== "Admin") {
+  if (req.adminCategory !== "Admin") {
     throw new ExpressError(404, "You are not admin to add people");
   }
   const exists = await Admin.findOne({ email });

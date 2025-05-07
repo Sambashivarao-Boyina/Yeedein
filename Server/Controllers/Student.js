@@ -55,7 +55,11 @@ module.exports.getStudentDetails = async (req, res) => {
 
   const id = decrypt(studentId);
 
-  const student = await Student.findOne({ idNumber: id })
+  if (!id) {
+    throw new ExpressError(404, "ID not found");
+  }
+
+  const student = await Student.findById(id)
     .populate({
       path: "checkInScannedBy",
       select: "email", // Only select the 'email' field from this populated document

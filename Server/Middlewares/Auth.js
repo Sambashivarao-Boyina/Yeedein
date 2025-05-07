@@ -10,7 +10,7 @@ module.exports.verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
   
     req.adminId = decoded.id;
-    req.adminCategroy = decoded.categroy;
+    req.adminCategory = decoded.category;
     next();
   } catch (err) {
     res.status(401).json({ msg: "Invalid token" });

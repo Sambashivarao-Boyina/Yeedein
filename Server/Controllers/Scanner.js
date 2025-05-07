@@ -5,7 +5,7 @@ const ExpressError = require("../Utils/ExpessError");
 module.exports.checkInStudent = async (req, res) => {
   const token = req.body.token;
 
-  if (!(req.adminCategroy === "Admin" || req.adminCategroy === "CheckIn")) {
+  if (!(req.adminCategory === "Admin" || req.adminCategory === "CheckIn")) {
     throw new ExpressError(404, "You have no Access to CheckIn Students");
   }
   if (!token) {
@@ -36,7 +36,7 @@ module.exports.checkInStudent = async (req, res) => {
 
 module.exports.scanFood = async (req, res) => {
   const token = req.body.token;
-  if (!(req.adminCategroy === "Admin" || req.adminCategroy === "Food")) {
+  if (!(req.adminCategory === "Admin" || req.adminCategory === "Food")) {
     throw new ExpressError(404, "You have no Access to Scan Food");
   }
 
@@ -71,7 +71,7 @@ module.exports.scanFood = async (req, res) => {
 
 module.exports.scanIceCream = async (req, res) => {
   const token = req.body.token;
-  if (!(req.adminCategroy === "Admin" || req.adminCategroy === "IceCream")) {
+  if (!(req.adminCategory === "Admin" || req.adminCategory === "IceCream")) {
     throw new ExpressError(404, "You have no Access to Scan Icecream");
   }
 
