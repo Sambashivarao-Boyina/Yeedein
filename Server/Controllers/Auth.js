@@ -60,7 +60,7 @@ module.exports.refreshToken = async (req, res) => {
     throw new ExpressError(404, "Admin not found");
   }
 
-  const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: admin._id, category:admin.category }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 

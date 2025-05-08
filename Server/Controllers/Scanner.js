@@ -4,7 +4,6 @@ const ExpressError = require("../Utils/ExpessError");
 
 module.exports.checkInStudent = async (req, res) => {
   const token = req.body.token;
-
   if (!(req.adminCategory === "Admin" || req.adminCategory === "CheckIn")) {
     throw new ExpressError(404, "You have no Access to CheckIn Students");
   }

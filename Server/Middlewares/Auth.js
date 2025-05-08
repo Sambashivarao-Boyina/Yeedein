@@ -8,7 +8,7 @@ module.exports.verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
-  
+    
     req.adminId = decoded.id;
     req.adminCategory = decoded.category;
     next();
